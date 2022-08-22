@@ -1,0 +1,24 @@
+[
+    {
+      "id": 1,
+      "name": "New customer",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+      "price": 19.99,
+      "imgUrl": "/imgs/store/build-your-server.jpg"
+    },
+    {
+      "id": 2,
+      "name": "First buy",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+      "price": 5.99,
+      "imgUrl": "/imgs/store/dark-frorest.webp"
+    },
+    {
+        "id": 2,
+        "name": "First buy",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+        "price": 5.99,
+        "imgUrl": "/imgs/store/dark-frorest.webp"
+      }
+  ]
+  

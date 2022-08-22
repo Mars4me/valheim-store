@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "name": "Own Server",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusconsectetur adipisicing elit. Assumenda sunt natusda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 19.99,
+    "imgUrl": "/imgs/store/build-your-server.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Open Dark Forest",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 5.99,
+    "imgUrl": "/imgs/store/dark-frorest.webp"
+  },
+  {
+    "id": 3,
+    "name": "Be your friend in game (one day)",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 5.99,
+    "imgUrl": "/imgs/store/friend.webp"
+  },
+  {
+    "id": 4,
+    "name": "New House",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 10.99,
+    "imgUrl": "/imgs/store/house.webp"
+  },
+  {
+    "id": 5,
+    "name": "Greate Home",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 25.99,
+    "imgUrl": "/imgs/store/make-great-your-home.webp"
+  },
+  {
+    "id": 6,
+    "name": "Open plains",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 20.99,
+    "imgUrl": "/imgs/store/plains.webp"
+  },
+  {
+    "id": 7,
+    "name": "Open snow biom",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 15.99,
+    "imgUrl": "/imgs/store/snow.webp"
+  },
+  {
+    "id": 8,
+    "name": "Open swamp",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 18.99,
+    "imgUrl": "/imgs/store/swamp.webp"
+  },
+  {
+    "id": 9,
+    "name": "Own cottage near sea",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda sunt natus veniam voluptatem? Maxime cupiditate fuga sit inventore est consequuntur minima aliquid sed ad hic.",
+    "price": 35.99,
+    "imgUrl": "/imgs/store/summe-cottage.webp"
+  }
+]

@@ -1,0 +1,22 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+@import "normalize.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+body {
+  font-family: "Quicksand", sans-serif;
+}
+
+html {
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+}
+
+.navbar-brand img{ 
+  transition: all .1s ease-in-out;
+}
+
+.navbar-brand img:hover{ 
+  transform: scale(1.05);
+}
+
