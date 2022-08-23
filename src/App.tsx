@@ -10,25 +10,28 @@ import Product from "./components/Product";
 import NotFoundPage from "./pages/NotFoundPage";
 import Coupons from "./pages/Coupons";
 import History from "./pages/History";
+import { OrderContextProvider } from "./context/OrderContext";
 
 const App = () => {
   return (
-    <ShoppingCartProvider>
-      <Navbar />
-      <Container className="mb-4">
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/store" element={<StoreLayout />}>
-            <Route index element={<Store />} />
-            <Route path=":id" element={<Product />} />
-          </Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/coupons" element={<Coupons />}></Route>
-          <Route path="/history" element={<History />}></Route>
-          <Route path="/*" element={<NotFoundPage />}></Route>
-        </Routes>
-      </Container>
-    </ShoppingCartProvider>
+    <OrderContextProvider>
+      <ShoppingCartProvider>
+        <Navbar />
+        <Container className="mb-4">
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/store" element={<StoreLayout />}>
+              <Route index element={<Store />} />
+              <Route path=":id" element={<Product />} />
+            </Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/coupons" element={<Coupons />}></Route>
+            <Route path="/history" element={<History />}></Route>
+            <Route path="/*" element={<NotFoundPage />}></Route>
+          </Routes>
+        </Container>
+      </ShoppingCartProvider>
+    </OrderContextProvider>
   );
 };
 

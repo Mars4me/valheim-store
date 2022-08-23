@@ -1,16 +1,18 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Button, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import storeItems from "../data/items.json";
 import { formatCurrency } from "../utilities/formatCurrency";
 
-type CartItemProps = {
+type GoodsItemProps = {
   id: number;
   quantity: number;
+  removeButton?: Boolean;
+  children?: ReactNode;
 };
 
-const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
+const GoodsItem: FC<GoodsItemProps> = ({ id, quantity, removeButton, children }) => {
   const { removeFromCart } = useShoppingCart();
   const item = storeItems.find((i) => i.id === id);
 
@@ -36,11 +38,14 @@ const CartItem: FC<CartItemProps> = ({ id, quantity }) => {
         </div>
       </div>
       <div>{formatCurrency(item.price * quantity)}</div>
-      <Button variant="outline-danger" size="sm" onClick={() => removeFromCart(id)}>
-        X
-      </Button>
+      {removeButton && (
+        <Button variant="outline-danger" size="sm" onClick={() => removeFromCart(id)}>
+          X
+        </Button>
+      )}
+      {children}
     </Stack>
   );
 };
 
-export default CartItem;
+export default GoodsItem;

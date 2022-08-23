@@ -8,7 +8,7 @@ type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
-type CartItem = {
+export type CartItem = {
   id: number;
   quantity: number;
 };
@@ -20,6 +20,8 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
+  fillCartFromPreviousOrder: (items: CartItem[]) => void;
+  clearCart: () => void;
   cartQuantity: number;
   cartItems: CartItem[];
 };
@@ -58,6 +60,12 @@ export const ShoppingCartProvider: FC<ShoppingCartProviderProps> = ({ children }
 
   const removeFromCart = (id: number) => setCartItems((currItems) => currItems.filter((item) => item.id !== id));
 
+  const clearCart = () => setCartItems([] as CartItem[]);
+
+  const fillCartFromPreviousOrder = (items: CartItem[]) => {
+    setCartItems(items);
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -65,8 +73,10 @@ export const ShoppingCartProvider: FC<ShoppingCartProviderProps> = ({ children }
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
+        fillCartFromPreviousOrder,
         openCart,
         closeCart,
+        clearCart,
         cartItems,
         cartQuantity,
       }}

@@ -1,27 +1,76 @@
-export const coupons = [
+import moment from "moment";
+import "moment/dist/locale/uk";
+import { createContext, FC, ReactNode, useContext, useState } from "react";
+import { CartItem } from "./ShoppingCartContext";
+
+type Order = {
+  user: string;
+  products: CartItem[];
+  total: string;
+  date: string;
+};
+const initState: Order[] = [
   {
-    id: 1,
-    name: "Invite coupon",
-    code: "1234567890",
-    discount: 0.05,
-    image: "https://st.cdjapan.co.jp/pictures/cms/c/firstordercoupon700x300.png",
-    alt: "invite coupon",
+    user: "Vitalii",
+    products: [
+      { id: 1, quantity: 1 },
+      { id: 2, quantity: 2 },
+      { id: 5, quantity: 3 },
+    ],
+    total: "25 $",
+    date: "22.08.2022",
   },
   {
-    id: 2,
-    name: "First order",
-    code: "234567890",
-    discount: 0.25,
-    image: "https://st.cdjapan.co.jp/pictures/cms/c/firstordercoupon700x300.png",
-    alt: "First order",
+    user: "Max",
+    products: [
+      { id: 5, quantity: 1 },
+      { id: 3, quantity: 2 },
+      { id: 1, quantity: 2 },
+      { id: 7, quantity: 2 },
+      { id: 8, quantity: 2 },
+    ],
+    total: "120 $",
+    date: "25.08.2022",
   },
   {
-    id: 3,
-    name: "Summer sales",
-    code: "34567890",
-    discount: 0.1,
-    image:
-      "https://images.ctfassets.net/hrltx12pl8hq/TobRnmMX1EaYRFZ0zR72S/fce1062cfe5920c07f62c7209c9ed1f3/shutterstock-coupon.jpg",
-    alt: "Summer sales",
+    user: "Vlad",
+    products: [
+      { id: 2, quantity: 1 },
+      { id: 3, quantity: 1 },
+    ],
+    total: "12 $",
+    date: "21.08.2022",
   },
 ];
+
+type OrderContext = {
+  history: Order[];
+  addOrder: (cartItem: CartItem[], total: string) => void;
+};
+
+const OrderContext = createContext<OrderContext>({} as OrderContext);
+
+export function useOrderContext() {
+  return useContext(OrderContext);
+}
+
+type OrderContextProviderProps = {
+  children?: ReactNode;
+};
+
+export const OrderContextProvider: FC<OrderContextProviderProps> = ({ children }) => {
+  moment.locale("uk");
+  const [history, setHistory] = useState<Order[]>(initState);
+  const addOrder = (cartItem: CartItem[], total: string) =>
+    setHistory([
+      ...history,
+      {
+        products: cartItem,
+        date: "" + moment().format("MMMM Do YYYY, h:mm:ss a"),
+        total,
+        user: "" + Math.random() * 10,
+      },
+    ]);
+
+  return <OrderContext.Provider value={{ addOrder, history }}>{children}</OrderContext.Provider>;
+};

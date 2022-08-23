@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
+import { Button, Col, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { siteMapRoutes } from "../utilities/siteMap";
@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <NavbarBs sticky="top" className="shadow-sm mb-3" expand="sm">
-      <Container>
+      <Container fluid="md">
         <div
           className="blur position-absolute top-0 start-0 w-100 h-100 "
           style={{ zIndex: 2, backgroundColor: "rgba(255,255,255, 0.9)", backdropFilter: "blur(14px)" }}

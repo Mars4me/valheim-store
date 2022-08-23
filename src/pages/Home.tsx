@@ -3,7 +3,11 @@ import { Col, Row } from "react-bootstrap";
 
 const Home: FC = () => {
   return (
-    <h1>Home</h1>
+    <Row className="text-center">
+      <Col>
+        <h1 className="display-1 mb-3">Valheim</h1>
+      </Col>
+    </Row>
   );
 };
 

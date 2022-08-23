@@ -20,3 +20,9 @@ html {
   transform: scale(1.05);
 }
 
+section[data-page="history"] {
+  img:hover {
+    transform: scale(1.1);
+  }
+}
+

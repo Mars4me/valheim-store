@@ -1,57 +1,25 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import { Button, Form, InputGroup, Offcanvas, Stack } from "react-bootstrap";
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import { formatCurrency } from "../utilities/formatCurrency";
-import storeItems from "../data/items.json";
-import CartItem from "./CartItem";
-import { coupons, useCoupon } from "../context/CouponContext";
+import GoodsItem from "./GoodsItem";
+import { useShoppingCartHook } from "../hooks/useShoppingCartHook";
 
 type ShoppingCartProps = {
   isOpen: boolean;
 };
 
 const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
-  const { closeCart, cartItems } = useShoppingCart();
-  const [isCouponActive, setIsCouponActive] = useState(false);
-  const [isValidationErrors, setIsValidationErrors] = useState(false);
-  const { activeCoupon, suggestedCoupon, checkCoupon, removeCoupon } = useCoupon();
+  const {
+    isCouponActive,
+    activeCoupon,
+    checkCouponIsValid,
+    closeCart,
+    makeOrder,
+    totalPrice,
+    isValidationErrors,
+    suggestedCoupon,
+    cartItems,
+  } = useShoppingCartHook();
   const couponInput = useRef<HTMLInputElement>(null);
-
-  const totalPrice = formatCurrency(
-    cartItems.reduce((total, cartItem) => {
-      const item = storeItems.find((i) => i.id === cartItem.id);
-      return total + (item?.price || 0) * cartItem.quantity;
-    }, 0) *
-      (1 - (activeCoupon?.discount || 0))
-  );
-
-  const checkCouponIsValid = (code: string) => {
-    if (code) {
-      const checkIsValid = checkCoupon(code);
-      if (checkIsValid) {
-        setIsCouponActive(true);
-        setIsValidationErrors(false);
-      } else {
-        setIsValidationErrors(true);
-      }
-
-      if (isCouponActive) {
-        removeCoupon();
-        setIsCouponActive(false);
-      }
-    } else {
-      setIsValidationErrors(true);
-    }
-  };
-
-  useEffect(() => {
-    console.log("hello bro");
-    if (cartItems.length === 0) {
-      removeCoupon();
-      setIsCouponActive(false);
-      setIsValidationErrors(false);
-    }
-  }, [cartItems]);
 
   return (
     <Offcanvas show={isOpen} placement="end" onHide={closeCart}>
@@ -62,7 +30,7 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
         {cartItems[0] ? (
           <Stack gap={3}>
             {cartItems.map((item) => (
-              <CartItem key={item.id} {...item} />
+              <GoodsItem key={item.id} {...item} removeButton />
             ))}
             <div className="d-flex">
               {activeCoupon.discount > 0 && isCouponActive && (
@@ -76,7 +44,7 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
 
             <InputGroup className="mb-3 position-relative">
               {isValidationErrors && (
-                <p className="text-danger position-absolute small" style={{ zIndex: "2", top: "-16px", right: "5px" }}>
+                <p className="text-danger position-absolute small" style={{ zIndex: "2", top: "-20px", right: "5px" }}>
                   сoupon code is not valid
                 </p>
               )}
@@ -94,7 +62,9 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
                 placeholder={"use coupon"}
               />
             </InputGroup>
-            <Button variant="success">Pay</Button>
+            <Button variant="success" onClick={() => makeOrder(cartItems, totalPrice)}>
+              Pay
+            </Button>
           </Stack>
         ) : (
           <h1 className="text-center">Cart is empty</h1>
