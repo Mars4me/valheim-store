@@ -3,25 +3,25 @@ import "moment/dist/locale/uk";
 import { createContext, FC, ReactNode, useContext, useState } from "react";
 import { CartItem } from "./ShoppingCartContext";
 
-type Order = {
-  user: string;
+export type Order = {
+  number: number;
   products: CartItem[];
   total: string;
   date: string;
 };
 const initState: Order[] = [
   {
-    user: "Vitalii",
+    number: 1,
     products: [
       { id: 1, quantity: 1 },
       { id: 2, quantity: 2 },
       { id: 5, quantity: 3 },
     ],
     total: "25 $",
-    date: "22.08.2022",
+    date: "серпень 22-го 2022",
   },
   {
-    user: "Max",
+    number: 2,
     products: [
       { id: 5, quantity: 1 },
       { id: 3, quantity: 2 },
@@ -30,16 +30,16 @@ const initState: Order[] = [
       { id: 8, quantity: 2 },
     ],
     total: "120 $",
-    date: "25.08.2022",
+    date: "серпень 23-го 2022",
   },
   {
-    user: "Vlad",
+    number: 3,
     products: [
       { id: 2, quantity: 1 },
       { id: 3, quantity: 1 },
     ],
     total: "12 $",
-    date: "21.08.2022",
+    date: "серпень 24-го 2022",
   },
 ];
 
@@ -66,9 +66,9 @@ export const OrderContextProvider: FC<OrderContextProviderProps> = ({ children }
       ...history,
       {
         products: cartItem,
-        date: "" + moment().format("MMMM Do YYYY, h:mm:ss a"),
+        date: "" + moment().format("MMMM Do YYYY"),
         total,
-        user: "" + Math.random() * 10,
+        number: history.length + 1,
       },
     ]);
 

@@ -1,8 +1,9 @@
-import React, { FC, ReactNode } from "react";
-import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
-import GoodsItem from "../components/GoodsItem";
+import { FC, ReactNode, useState } from "react";
+import { Col, Row, Stack } from "react-bootstrap";
+import ConfirmationModal from "../components/ConfirmationModal";
+import HistoryAccordionItem from "../components/HistoryAccordionItem";
 import { useOrderContext } from "../context/OrderContext";
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { CartItem, useShoppingCart } from "../context/ShoppingCartContext";
 
 interface HistoryProps {
   children?: ReactNode;
@@ -10,37 +11,36 @@ interface HistoryProps {
 
 const History: FC<HistoryProps> = () => {
   const { history } = useOrderContext();
+  const { cartItems } = useShoppingCart();
   const { fillCartFromPreviousOrder } = useShoppingCart();
+  const [show, setShow] = useState(false);
+  const [previousOrder, setPreviousOrder] = useState<CartItem[]>([] as CartItem[]);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  const makeNewOrderViaHistory = (order: CartItem[]) => {
+    if (cartItems.length === 0) {
+      fillCartFromPreviousOrder(order);
+      return null;
+    }
+    setPreviousOrder(order);
+    handleShow();
+  };
+
   return (
     <section data-page="history">
       <Row>
-        <h1 className="text-center">Orders history</h1>
+        <h1 className="text-center py-4">Orders history</h1>
         <Col sm={12}>
           <Stack gap={4}>
-            {history.map((order) => (
-              <Stack key= {order.date} gap={1} className="shadow-lg pt-2 pb-4 px-5 position-relative">
-                <div className="d-flex justify-content-between m-1 mb-3">
-                  <div data-order="success" className="d-inline">
-                    <span className="px-1 py-2 bg-success">{""}</span>
-                    <h4 className="ms-2 d-inline">Success</h4>{" "}
-                  </div>
-                  <h4>{order.date}</h4>
-                </div>
-                <Stack gap={2}>
-                  {" "}
-                  {order.products.map((item) => (
-                    <GoodsItem key={item.id} {...item} />
-                  ))}
-                  <div className="m-auto fw-bold fs-4">Total: {order.total}</div>
-                  <Button variant="outline-success" onClick={() => fillCartFromPreviousOrder(order.products)}>
-                    Repeat order
-                  </Button>
-                </Stack>
-              </Stack>
+            {history.map((order, index) => (
+              <HistoryAccordionItem key={index} order={order} index={index} makeNewOrderViaHistory={makeNewOrderViaHistory} />
             ))}
           </Stack>
         </Col>
       </Row>
+      <ConfirmationModal show={show} handleClose={handleClose} handleConfirm={fillCartFromPreviousOrder} data={previousOrder} />
     </section>
   );
 };

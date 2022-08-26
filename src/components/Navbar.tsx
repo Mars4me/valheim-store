@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Button, Col, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
+import { Button,Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { siteMapRoutes } from "../utilities/siteMap";
@@ -8,27 +8,25 @@ const Navbar = () => {
   const { openCart, cartQuantity } = useShoppingCart();
 
   return (
-    <NavbarBs sticky="top" className="shadow-sm mb-3" expand="sm">
+    <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm">
       <Container fluid="md">
         <div
           className="blur position-absolute top-0 start-0 w-100 h-100 "
-          style={{ zIndex: 2, backgroundColor: "rgba(255,255,255, 0.9)", backdropFilter: "blur(14px)" }}
+          style={{ zIndex: 2, backgroundColor: "rgba(255,255,255, 0.8)", backdropFilter: "blur(14px)" }}
         ></div>
-        <div style={{ zIndex: 3, display: "flex" }}>
-          <NavbarBs.Brand as={NavLink} to="/">
-            <img src={"/imgs/valheim.webp"} height="60"></img>
-          </NavbarBs.Brand>
-          <NavbarBs.Toggle aria-controls="basic-navbar-nav" />
-          <NavbarBs.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto bg-transparent">
-              {siteMapRoutes.map((route, idx) => (
-                <Nav.Link to={route.path} as={NavLink} key={idx}>
-                  {route.name}
-                </Nav.Link>
-              ))}
-            </Nav>
-          </NavbarBs.Collapse>
-        </div>
+        <NavbarBs.Brand as={NavLink} to="/" className="order-1 order-sm-0" style={{ zIndex: 3 }}>
+          <img src={"/imgs/valheim.webp"} height="60"></img>
+        </NavbarBs.Brand>
+        <NavbarBs.Toggle aria-controls="responsive-navbar-nav" style={{ zIndex: 3 }} />
+        <NavbarBs.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto bg-transparent">
+            {siteMapRoutes.map((route, idx) => (
+              <Nav.Link to={route.path} as={NavLink} key={idx} style={{ zIndex: 3 }}>
+                {route.name}
+              </Nav.Link>
+            ))}
+          </Nav>
+        </NavbarBs.Collapse>
         <Button
           onClick={openCart}
           style={{ width: "3rem", height: "3rem", position: "relative", zIndex: 3 }}
@@ -41,7 +39,7 @@ const Navbar = () => {
           </svg>
           {cartQuantity > 0 && (
             <div
-              className="rounded-circle bg-danger d-flex justify-content-center align-items-center"
+              className="rounded-circle bg-danger"
               style={{
                 color: "white",
                 width: "1.5rem",

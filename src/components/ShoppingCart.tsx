@@ -19,6 +19,7 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
     suggestedCoupon,
     cartItems,
   } = useShoppingCartHook();
+
   const couponInput = useRef<HTMLInputElement>(null);
 
   return (

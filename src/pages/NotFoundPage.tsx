@@ -6,13 +6,16 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 const NotFoundPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       navigate(-1 as any, { replace: true });
     }, 5000);
+    return () => {
+      clearTimeout(timeout);
+    };
   });
   return (
     <>
-      <Alert variant="danger" className="d-flex flex-column justify-content-center align-items-center" dismissible>
+      <Alert variant="danger" className="d-flex flex-column justify-content-center align-items-center" >
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
         <Alert.Heading>Redirect to Home</Alert.Heading>
         <p>

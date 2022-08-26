@@ -21,7 +21,7 @@ const GoodsItem: FC<GoodsItemProps> = ({ id, quantity, removeButton, children })
   return (
     <Stack direction="horizontal" gap={2} className="d-flex align-items-center">
       <Link to={`/store/${id}`}>
-        <img src={item.imgUrl} style={{ width: "125px", height: "75px", objectFit: "cover" }} alt="smaple image" />
+        <img src={item.images.thumbnail} style={{ width: "125px", height: "75px", objectFit: "cover" }} alt="smaple image" />
       </Link>
 
       <div className="me-auto">
