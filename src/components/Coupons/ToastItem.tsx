@@ -29,7 +29,7 @@ const ToastItem: FC<ToastItemProps> = ({ code }) => {
   return (
     <>
       <Button id="liveToastBtn" onClick={toastAction} variant="outline-success" className="w-100">
-        Coupon code
+        Promo code
       </Button>
     </>
   );

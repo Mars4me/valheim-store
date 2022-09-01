@@ -46,7 +46,7 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
             <InputGroup className="mb-3 position-relative">
               {isValidationErrors && (
                 <p className="text-danger position-absolute small" style={{ zIndex: "2", top: "-20px", right: "5px" }}>
-                  сoupon code is not valid
+                  promo code is not valid
                 </p>
               )}
               <Button
@@ -54,13 +54,13 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
                 variant={isCouponActive ? "success" : "outline-secondary"}
                 id="button-addon1"
               >
-                Coupon
+                Redeem
               </Button>
               <Form.Control
                 ref={couponInput}
                 disabled={isCouponActive}
                 defaultValue={suggestedCoupon}
-                placeholder={"use coupon"}
+                placeholder={"Promo code"}
               />
             </InputGroup>
             <Button variant="success" onClick={() => makeOrder(cartItems, totalPrice)}>

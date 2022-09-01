@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Breadcrumb, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Store from "./pages/Store";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
