@@ -1,11 +1,19 @@
-import { memo } from "react";
-import { Button,Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
+import React, { memo, ReactHTMLElement, useRef } from "react";
+import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { siteMapRoutes } from "../utilities/siteMap";
 
 const Navbar = () => {
   const { openCart, cartQuantity } = useShoppingCart();
+
+  const burgerMenuToggleButton = useRef<HTMLButtonElement>(null);
+  const collapseBurgerMenu = () => {
+    const elResponsiveNavbar = document.querySelector("#responsive-navbar-nav");
+    if (elResponsiveNavbar!.classList.contains("show")) {
+      burgerMenuToggleButton.current!.click();
+    }
+  };
 
   return (
     <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm">
@@ -17,11 +25,11 @@ const Navbar = () => {
         <NavbarBs.Brand as={NavLink} to="/" className="order-1 order-sm-0" style={{ zIndex: 3 }}>
           <img src={"/imgs/valheim.webp"} height="60"></img>
         </NavbarBs.Brand>
-        <NavbarBs.Toggle aria-controls="responsive-navbar-nav" style={{ zIndex: 3 }} />
+        <NavbarBs.Toggle ref={burgerMenuToggleButton} aria-controls="responsive-navbar-nav" style={{ zIndex: 3 }} />
         <NavbarBs.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto bg-transparent">
             {siteMapRoutes.map((route, idx) => (
-              <Nav.Link to={route.path} as={NavLink} key={idx} style={{ zIndex: 3 }}>
+              <Nav.Link to={route.path} as={NavLink} key={idx} style={{ zIndex: 3 }} onClick={() => collapseBurgerMenu()}>
                 {route.name}
               </Nav.Link>
             ))}

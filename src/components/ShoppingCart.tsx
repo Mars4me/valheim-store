@@ -2,18 +2,20 @@ import { FC, useRef } from "react";
 import { Button, Form, InputGroup, Offcanvas, Stack } from "react-bootstrap";
 import GoodsItem from "./GoodsItem";
 import { useShoppingCartHook } from "../hooks/useShoppingCartHook";
+import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../utilities/formatCurrency";
 
 type ShoppingCartProps = {
   isOpen: boolean;
 };
 
 const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
+  const navigate = useNavigate();
   const {
     isCouponActive,
     activeCoupon,
     checkCouponIsValid,
     closeCart,
-    makeOrder,
     totalPrice,
     isValidationErrors,
     suggestedCoupon,
@@ -21,6 +23,11 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
   } = useShoppingCartHook();
 
   const couponInput = useRef<HTMLInputElement>(null);
+
+  const moveToCheckoutPage = () => {
+    navigate("/checkout");
+    closeCart();
+  };
 
   return (
     <Offcanvas show={isOpen} placement="end" onHide={closeCart}>
@@ -40,15 +47,10 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
                   {"%"}
                 </div>
               )}
-              <div className="ms-auto fw-bold fs-4">Total {totalPrice}</div>
+              <div className="ms-auto fw-bold fs-4">Total {formatCurrency(totalPrice)}</div>
             </div>
 
             <InputGroup className="mb-3 position-relative">
-              {isValidationErrors && (
-                <p className="text-danger position-absolute small" style={{ zIndex: "2", top: "-20px", right: "5px" }}>
-                  promo code is not valid
-                </p>
-              )}
               <Button
                 onClick={() => checkCouponIsValid(couponInput.current?.value as string)}
                 variant={isCouponActive ? "success" : "outline-secondary"}
@@ -56,6 +58,11 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
               >
                 Redeem
               </Button>
+              {isValidationErrors && (
+                <p className="text-danger position-absolute small" style={{ zIndex: "2", top: "-20px", right: "5px" }}>
+                  promo code is not valid
+                </p>
+              )}
               <Form.Control
                 ref={couponInput}
                 disabled={isCouponActive}
@@ -63,8 +70,13 @@ const ShoppingCart: FC<ShoppingCartProps> = ({ isOpen }) => {
                 placeholder={"Promo code"}
               />
             </InputGroup>
-            <Button variant="success" onClick={() => makeOrder(cartItems, totalPrice)}>
-              Pay
+            <Button
+              variant="success"
+              onClick={() => {
+                moveToCheckoutPage();
+              }}
+            >
+              Checkout
             </Button>
           </Stack>
         ) : (

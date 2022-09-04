@@ -15,6 +15,8 @@ import AboutHello from "./pages/About/AboutHello";
 import { AboutCompany } from "./pages/About/AboutCompany";
 import AboutExampes from "./pages/About/AboutExampes";
 import AboutTeam from "./pages/About/AboutTeam";
+import SuccessPage from "./pages/SuccessPage";
+import Checkout from "./pages/Checkout";
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
             </Route>
             <Route path="/coupons" element={<Coupons />}></Route>
             <Route path="/history" element={<History />}></Route>
+            <Route path="/success" element={<SuccessPage />}></Route>
+            <Route path="/checkout" element={<Checkout />}></Route>
             <Route path="/about" element={<AboutLayout />}>
               <Route index element={<AboutHello />} />
               <Route path="company" element={<AboutCompany />} />

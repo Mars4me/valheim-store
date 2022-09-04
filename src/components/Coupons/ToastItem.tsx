@@ -22,8 +22,9 @@ const ToastItem: FC<ToastItemProps> = ({ code }) => {
       transition: bounce,
       toastId: code,
     });
-    navigator.clipboard.writeText(code);
     setSuggestedCoupon(code);
+
+    navigator.clipboard.writeText(code);
   };
 
   return (

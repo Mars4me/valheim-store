@@ -6,8 +6,9 @@ import { CartItem } from "./ShoppingCartContext";
 export type Order = {
   number: number;
   products: CartItem[];
-  total: string;
+  total: number;
   date: string;
+  isSuccess: boolean
 };
 const initState: Order[] = [
   {
@@ -17,8 +18,9 @@ const initState: Order[] = [
       { id: 2, quantity: 2 },
       { id: 5, quantity: 3 },
     ],
-    total: "25 $",
+    total: 25,
     date: "серпень 22-го 2022",
+    isSuccess: true
   },
   {
     number: 2,
@@ -29,8 +31,9 @@ const initState: Order[] = [
       { id: 7, quantity: 2 },
       { id: 8, quantity: 2 },
     ],
-    total: "120 $",
+    total: 120,
     date: "серпень 23-го 2022",
+    isSuccess: true
   },
   {
     number: 3,
@@ -38,14 +41,15 @@ const initState: Order[] = [
       { id: 2, quantity: 1 },
       { id: 3, quantity: 1 },
     ],
-    total: "12 $",
+    total: 12.5,
     date: "серпень 24-го 2022",
+    isSuccess:true
   },
 ];
 
 type OrderContext = {
   history: Order[];
-  addOrder: (cartItem: CartItem[], total: string) => void;
+  addOrder: (cartItem: CartItem[], total: number) => void;
 };
 
 const OrderContext = createContext<OrderContext>({} as OrderContext);
@@ -61,7 +65,7 @@ type OrderContextProviderProps = {
 export const OrderContextProvider: FC<OrderContextProviderProps> = ({ children }) => {
   moment.locale("uk");
   const [history, setHistory] = useState<Order[]>(initState);
-  const addOrder = (cartItem: CartItem[], total: string) =>
+  const addOrder = (cartItem: CartItem[], total: number) =>
     setHistory([
       ...history,
       {
@@ -69,6 +73,7 @@ export const OrderContextProvider: FC<OrderContextProviderProps> = ({ children }
         date: "" + moment().format("MMMM Do YYYY"),
         total,
         number: history.length + 1,
+        isSuccess: false,
       },
     ]);
 

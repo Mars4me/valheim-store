@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Accordion, Button, Stack } from "react-bootstrap";
 import { Order } from "../context/OrderContext";
 import { CartItem } from "../context/ShoppingCartContext";
+import { formatCurrency } from "../utilities/formatCurrency";
 import GoodsItem from "./GoodsItem";
 
 type HistoryAccordionItemProps = {
@@ -29,7 +30,7 @@ const HistoryAccordionItem: FC<HistoryAccordionItemProps> = ({ order, index, mak
             {order.products.map((item) => (
               <GoodsItem key={item.id} {...item} />
             ))}
-            <div className="m-auto fw-bold fs-4">Total: {order.total}</div>
+            <div className="m-auto fw-bold fs-4">Total: {formatCurrency(order.total)}</div>
             <Button variant="outline-success" onClick={() => makeNewOrderViaHistory(order.products)}>
               Repeat order
             </Button>
