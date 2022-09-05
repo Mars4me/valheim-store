@@ -5,7 +5,8 @@ import { formatCurrency } from "../utilities/formatCurrency";
 import ItemInStoreIcon from "./ItemInStoreIcon";
 import StoreItemAddButton from "./StoreItemAddButton";
 import Breadcrumbs from "./Breadcrumbs";
-
+import Slider from "./Slider";
+import { memo, useState } from "react";
 
 const Product = () => {
   const { id } = useParams();
@@ -26,13 +27,12 @@ const Product = () => {
   }
 
   return (
-    <Container className="py-2" >
       <Row className="justify-content-center">
         <Col md={10}>
-        <Breadcrumbs name={product.name}/>
+          <Breadcrumbs name={product.name} />
           <Card className="text-black">
             <div className="product-image position-relative">
-              <Card.Img variant="top" src={product.imgUrl} height="90%" style={{ objectFit: "cover" }} alt={product.name} />
+              <Slider images={product.images} />
               <ItemInStoreIcon />
             </div>
             <Card.Body>
@@ -49,8 +49,7 @@ const Product = () => {
           </Card>
         </Col>
       </Row>
-    </Container>
   );
 };
 
-export default Product;
+export default memo(Product);

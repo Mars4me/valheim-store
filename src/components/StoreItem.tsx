@@ -12,17 +12,17 @@ type StoreItemProps = {
   name: string;
   description: string;
   price: number;
-  imgUrl: string;
+  images: { thumbnail: string; additionScreens: string[] };
   children?: ReactNode;
 };
 
-const StoreItem: FC<StoreItemProps> = ({ id, name, description, price, imgUrl }) => {
+const StoreItem: FC<StoreItemProps> = ({ id, name, description, price, images }) => {
   const { getItemQuantity } = useShoppingCart();
   const quantity = getItemQuantity(id);
   return (
     <Card className="h-100">
       <Link to={`/store/${id}`} className="position-relative">
-        <Card.Img variant="top" src={imgUrl} height="200px" style={{ objectFit: "cover" }} />
+        <Card.Img variant="top" src={images.thumbnail} height="200px" style={{ objectFit: "cover" }} />
         {quantity ? (
           <Animate play={quantity > 0} start={{ opacity: 0 }} end={{ opacity: 1 }}>
             <ItemInStoreIcon style={{ position: "absolute", left: "5px", bottom: "5px" }} />

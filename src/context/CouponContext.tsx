@@ -51,7 +51,6 @@ export function useCoupon() {
 export const CouponContextProvider: FC<CouponProviderProps> = ({ children }) => {
   const [activeCoupon, setCoupon] = useState<ICoupon>({} as ICoupon);
   const [suggestedCoupon, setSuggestedCoupon] = useState<string>('');
-  const [couponItems, setCouponItems] = useLocalStorage<ICoupon[]>("coupons", []);
 
   const checkCoupon = (code: string): Boolean => {
     const coupon = coupons.find((coupon) => coupon.code === code);

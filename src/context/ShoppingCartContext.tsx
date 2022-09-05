@@ -1,14 +1,16 @@
 import { createContext, FC, ReactNode, useContext, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ShoppingCart from "../components/ShoppingCart";
 
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { CouponContextProvider } from "./CouponContext";
+import { useOrderContext } from "./OrderContext";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
 };
 
-type CartItem = {
+export type CartItem = {
   id: number;
   quantity: number;
 };
@@ -20,8 +22,13 @@ type ShoppingCartContext = {
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
+  fillCartFromPreviousOrder: (items: CartItem[]) => void;
+  clearCart: () => void;
+  updateTotalPrice: (totalPrice: number) => void;
+  makeOrder: (cartItems: CartItem[], totalPrice: number) => void;
   cartQuantity: number;
   cartItems: CartItem[];
+  totalPrice: number;
 };
 
 const ShoppingCartContext = createContext<ShoppingCartContext>({} as ShoppingCartContext);
@@ -31,8 +38,12 @@ export function useShoppingCart() {
 }
 
 export const ShoppingCartProvider: FC<ShoppingCartProviderProps> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { addOrder } = useOrderContext();
+  const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shopping-cart", []);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
   const openCart = () => setIsOpen(true);
@@ -58,6 +69,22 @@ export const ShoppingCartProvider: FC<ShoppingCartProviderProps> = ({ children }
 
   const removeFromCart = (id: number) => setCartItems((currItems) => currItems.filter((item) => item.id !== id));
 
+  const clearCart = () => setCartItems([] as CartItem[]);
+
+  const fillCartFromPreviousOrder = (items: CartItem[]) => {
+    setCartItems(items);
+  };
+
+  const updateTotalPrice = (totalPrice: number) => {
+    setTotalPrice(totalPrice);
+  };
+
+  const makeOrder = (cartItems: CartItem[], totalPrice: number) => {
+    addOrder(cartItems, totalPrice);
+    clearCart();
+    navigate("/success");
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -65,10 +92,15 @@ export const ShoppingCartProvider: FC<ShoppingCartProviderProps> = ({ children }
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
+        fillCartFromPreviousOrder,
         openCart,
         closeCart,
+        clearCart,
         cartItems,
         cartQuantity,
+        totalPrice,
+        updateTotalPrice,
+        makeOrder,
       }}
     >
       <CouponContextProvider>

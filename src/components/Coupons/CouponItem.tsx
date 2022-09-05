@@ -1,5 +1,7 @@
 import { FC } from "react";
+import { Card, Col } from "react-bootstrap";
 import ToastItem from "./ToastItem";
+import couponImage from "/imgs/coupon-2.jpg";
 
 export interface ICoupon {
   id: number;
@@ -16,16 +18,21 @@ interface CouponItemProps {
 
 const CouponItem: FC<CouponItemProps> = ({ coupon }) => {
   return (
-    <div className={"shadow p-2 mx-1 bg-body rounded"}>
-      <div className="col mt-1">
-        <img height={"200"} src={coupon.image} className="card-img-top" alt={coupon.alt} style={{objectFit:'contain'}}/>
-        <div className="card-body mt-3">
-          <h5 className="card-title">{coupon.name}</h5>
-          <p className="card-text">({coupon.code})</p>
-          <ToastItem code={coupon.code} />
+    <Col className="mt-1">
+      <Card>
+        <div className="position-relative">
+          <Card.Img height='200px'src={couponImage} alt={coupon.alt} style={{ objectFit: "cover" }} />
+          <div className="position-absolute w-100 fs-2 bg-success text-white bg-opacity-75 text-center" style={{ bottom: "25px", height: '3rem' }}>
+            <span style={{lineHeight: '3rem'}}>{coupon.discount * 100}%</span>
+          </div>
         </div>
-      </div>
-    </div>
+        <Card.Body className="m1-3">
+          <Card.Title className="ps-2"> {coupon.name}</Card.Title>
+          <Card.Text className="ps-2 text-muted">({coupon.code})</Card.Text>
+          <ToastItem code={coupon.code} />
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

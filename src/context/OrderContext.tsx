@@ -1,27 +1,81 @@
-export const coupons = [
+import moment from "moment";
+import "moment/dist/locale/uk";
+import { createContext, FC, ReactNode, useContext, useState } from "react";
+import { CartItem } from "./ShoppingCartContext";
+
+export type Order = {
+  number: number;
+  products: CartItem[];
+  total: number;
+  date: string;
+  isSuccess: boolean
+};
+const initState: Order[] = [
   {
-    id: 1,
-    name: "Invite coupon",
-    code: "1234567890",
-    discount: 0.05,
-    image: "https://st.cdjapan.co.jp/pictures/cms/c/firstordercoupon700x300.png",
-    alt: "invite coupon",
+    number: 1,
+    products: [
+      { id: 1, quantity: 1 },
+      { id: 2, quantity: 2 },
+      { id: 5, quantity: 3 },
+    ],
+    total: 25,
+    date: "серпень 22-го 2022",
+    isSuccess: true
   },
   {
-    id: 2,
-    name: "First order",
-    code: "234567890",
-    discount: 0.25,
-    image: "https://st.cdjapan.co.jp/pictures/cms/c/firstordercoupon700x300.png",
-    alt: "First order",
+    number: 2,
+    products: [
+      { id: 5, quantity: 1 },
+      { id: 3, quantity: 2 },
+      { id: 1, quantity: 2 },
+      { id: 7, quantity: 2 },
+      { id: 8, quantity: 2 },
+    ],
+    total: 120,
+    date: "серпень 23-го 2022",
+    isSuccess: true
   },
   {
-    id: 3,
-    name: "Summer sales",
-    code: "34567890",
-    discount: 0.1,
-    image:
-      "https://images.ctfassets.net/hrltx12pl8hq/TobRnmMX1EaYRFZ0zR72S/fce1062cfe5920c07f62c7209c9ed1f3/shutterstock-coupon.jpg",
-    alt: "Summer sales",
+    number: 3,
+    products: [
+      { id: 2, quantity: 1 },
+      { id: 3, quantity: 1 },
+    ],
+    total: 12.5,
+    date: "серпень 24-го 2022",
+    isSuccess:true
   },
-];
+]
+
+type OrderContext = {
+  history: Order[];
+  addOrder: (cartItem: CartItem[], total: number) => void;
+};
+
+const OrderContext = createContext<OrderContext>({} as OrderContext);
+
+export function useOrderContext() {
+  return useContext(OrderContext);
+}
+
+type OrderContextProviderProps = {
+  children?: ReactNode;
+};
+
+export const OrderContextProvider: FC<OrderContextProviderProps> = ({ children }) => {
+  moment.locale("uk");
+  const [history, setHistory] = useState<Order[]>(initState);
+  const addOrder = (cartItem: CartItem[], total: number) =>
+    setHistory([
+      ...history,
+      {
+        products: cartItem,
+        date: "" + moment().format("MMMM Do YYYY"),
+        total,
+        number: history.length + 1,
+        isSuccess: false,
+      },
+    ]);
+
+  return <OrderContext.Provider value={{ addOrder, history }}>{children}</OrderContext.Provider>;
+};
