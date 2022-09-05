@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 import { siteMapAbout } from "../utilities/siteMap";
 const Sidebar = () => {
   return (
-    <div className="position-fixed w-25" >
-    <NavbarBs sticky="top" className="shadow-sm " >
+    <NavbarBs className="shadow-sm">
       <Nav className="flex-column bg-transparent m-3 ">
         {siteMapAbout.map((route, idx) => (
           <Nav.Link to={route.path} as={NavLink} key={idx} className="fs-6">
@@ -13,7 +12,6 @@ const Sidebar = () => {
         ))}
       </Nav>
     </NavbarBs>
-    </div>
   );
 };
 

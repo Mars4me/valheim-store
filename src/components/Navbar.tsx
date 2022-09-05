@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm">
+    <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm" style={{zIndex:1030}}>
       <Container fluid="md">
         <div
           className="blur position-absolute top-0 start-0 w-100 h-100 "

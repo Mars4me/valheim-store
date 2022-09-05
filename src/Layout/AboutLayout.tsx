@@ -9,7 +9,7 @@ const AboutLayout = () => {
         <Col sm={8}>
           <Outlet />
         </Col>
-        <Col sm={2}>
+        <Col sm={{ span: 3, order: 2 }} xl={2} className="sticky-top " style={{ top: "55px" }}>
           <Sidebar />
         </Col>
       </Row>
