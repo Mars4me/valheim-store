@@ -16,14 +16,14 @@ const Navbar = () => {
   };
 
   return (
-    <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm" style={{zIndex:1030}}>
+    <NavbarBs collapseOnSelect sticky="top" className="shadow-sm mb-3" expand="sm" style={{ zIndex: 1030 }}>
       <Container fluid="md">
         <div
           className="blur position-absolute top-0 start-0 w-100 h-100 "
           style={{ zIndex: 2, backgroundColor: "rgba(255,255,255, 0.8)", backdropFilter: "blur(14px)" }}
         ></div>
         <NavbarBs.Brand as={NavLink} to="/" className="order-1 order-sm-0" style={{ zIndex: 3 }}>
-          <img src={"/imgs/valheim.webp"} height="60"></img>
+          <img src={"imgs/valheim.webp"} height="60"></img>
         </NavbarBs.Brand>
         <NavbarBs.Toggle ref={burgerMenuToggleButton} aria-controls="responsive-navbar-nav" style={{ zIndex: 3 }} />
         <NavbarBs.Collapse id="responsive-navbar-nav">

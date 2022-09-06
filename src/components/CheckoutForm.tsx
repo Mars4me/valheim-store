@@ -27,12 +27,12 @@ const CheckoutForm: FC<CheckoutFormProps> = ({ handleCheckout }) => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicLastName">
         <Form.Label>Last name</Form.Label>
-        <Form.Control type="text" {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
+        <Form.Control type="text" {...register("lastName", { required: true, pattern: /^[A-Za-z]+$/i })} />
         <Form.Text className="text-muted">We'll never share your personal information.</Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
-        <Form.Control type="email" {...register("email", { maxLength: 52 })} placeholder="youmail@example.com" />
+        <Form.Control type="email" {...register("email", {required: true,  maxLength: 52 })} placeholder="youmail@example.com" />
         <Form.Text className="text-muted">We'll never share your personal information.</Form.Text>
       </Form.Group>
       <div className="custom-control custom-checkbox">

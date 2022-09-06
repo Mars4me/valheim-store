@@ -16,13 +16,12 @@ const Checkout = () => {
     }
   };
 
-  return (
-    <Container className="d-flex justify-content-center">
+  return ( <Container className="d-flex justify-content-center">
       <Col md={11}>
         <div className="py-5 text-center">
           <Image
             className="d-block mx-auto mb-4 rounded"
-            src={"/imgs/checkout/valheim_merchant_cover.webp"}
+            src={"imgs/checkout/valheim_merchant_cover.webp"}
             alt="trade-dwarf"
             width={"75%"}
           />
@@ -56,13 +55,7 @@ const Checkout = () => {
                 <span>Total (USD)</span>
                 <strong>{formatCurrency(totalPrice)}</strong>
               </ListGroupItem>
-              <Button
-                variant="success"
-                size="lg"
-                className="btn my-2"
-                type="submit"
-                form="checkoutForm"
-              >
+              <Button variant="success" size="lg" className="btn my-2" type="submit" form="checkoutForm">
                 Continue to checkout
               </Button>
             </ListGroup>
