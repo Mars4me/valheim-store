@@ -1,6 +1,8 @@
 # Valheim server store
 
-## Active page
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://stand-with-ukraine.pp.ua)
+
+## Github pages
 
 [View website ](https://mars4me.github.io/valheim-store/#/) ✨📚
 
